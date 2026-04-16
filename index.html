@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Имшенецкий Денис. IT-предприниматель. CEO Founder Nethouse.</title>
+<meta name="description" content="Имшенецкий Денис. CEO Founder Nethouse. IT-бизнес, реклама и маркетинг, инвестиции.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;600&family=Montserrat:wght@200;300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:   #0F1825;
+  --ink:  #D8E4F0;
+  --gold: #C8A05A;
+  --dim:  #607080;
+  --line: rgba(216,228,240,0.1);
+}
+
+html, body { height: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Montserrat', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Фоновый символ (только десктоп) ── */
+.bg-char {
+  position: fixed;
+  right: -4vw;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Cormorant', serif;
+  font-size: clamp(240px, 38vw, 480px);
+  font-weight: 600;
+  color: var(--gold);
+  opacity: 0.04;
+  line-height: 1;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+  letter-spacing: -0.06em;
+}
+
+/* ── Угловые метки ── */
+.corner {
+  position: fixed;
+  width: 28px; height: 28px;
+  z-index: 10;
+  opacity: 0;
+  animation: fadeUp 0.6s 1.1s ease forwards;
+}
+.corner--tl { top: 28px; left: 28px; border-top: 1px solid var(--gold); border-left: 1px solid var(--gold); }
+.corner--tr { top: 28px; right: 28px; border-top: 1px solid var(--gold); border-right: 1px solid var(--gold); }
+.corner--bl { bottom: 28px; left: 28px; border-bottom: 1px solid var(--gold); border-left: 1px solid var(--gold); }
+.corner--br { bottom: 28px; right: 28px; border-bottom: 1px solid var(--gold); border-right: 1px solid var(--gold); }
+
+/* ── Верх и низ ── */
+.edge-label {
+  position: fixed;
+  left: 0; right: 0;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dim);
+  white-space: nowrap;
+  z-index: 10;
+  opacity: 0;
+  animation: fadeIn 0.6s 1.1s ease forwards;
+}
+.edge-label--top    { top: 36px; }
+.edge-label--bottom { bottom: 36px; }
+
+
+
+/* ── Анимации ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Контейнер ── */
+main.wrap {
+  width: min(700px, calc(100vw - 64px));
+  position: relative;
+  z-index: 2;
+  padding-bottom: 48px;
+}
+
+/* ── Верхний декор (только десктоп) ── */
+.top-deco {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeIn 0.6s 0s ease forwards;
+}
+.top-deco-line {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  opacity: 0.35;
+}
+.top-deco-mark {
+  width: 5px; height: 5px;
+  border: 1px solid var(--gold);
+  transform: rotate(45deg);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+.top-deco-date {
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  color: var(--dim);
+  flex-shrink: 0;
+}
+
+/* ── Надпись над именем ── */
+.eyebrow {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 36px;
+  opacity: 0;
+  animation: fadeIn 0.5s 0.1s ease forwards;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.eyebrow::after {
+  content: '';
+  flex: 1;
+  max-width: 48px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.4;
+}
+
+/* ── Имя (H1) ── */
+h1.name {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(52px, 10vw, 96px);
+  letter-spacing: -0.01em;
+  line-height: 0.92;
+  color: var(--ink);
+  margin-bottom: 40px;
+}
+.name-last {
+  font-weight: 600;
+  display: block;
+  opacity: 0;
+  animation: slideIn 0.7s 0.15s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+.name-first {
+  font-weight: 300;
+  display: block;
+  opacity: 0;
+  animation: slideIn 0.7s 0.25s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+
+/* ── Разделитель ── */
+hr.hr {
+  border: none;
+  height: 1px;
+  background: var(--line);
+  margin: 0 0 36px;
+  opacity: 0;
+  animation: fadeIn 0.5s 0.4s ease forwards;
+}
+
+/* ── Компания ── */
+.company {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 36px;
+  opacity: 0;
+  animation: fadeUp 0.6s 0.45s ease forwards;
+}
+.company-badge {
+  font-family: 'Cormorant', serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.2s;
+}
+.company-badge::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0; right: 0;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+.company-badge:hover { color: var(--gold); }
+.company-badge:hover::after { transform: scaleX(1); }
+
+.company-sep {
+  width: 16px; height: 1px;
+  background: var(--dim);
+  opacity: 0.35;
+  position: relative;
+  top: -4px;
+  flex-shrink: 0;
+}
+.company-role {
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+/* ── Теги ── */
+ul.tags {
+  list-style: none;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeUp 0.6s 0.55s ease forwards;
+}
+.tag {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dim);
+  border: 1px solid var(--line);
+  padding: 7px 14px;
+  transition: border-color 0.2s, color 0.2s;
+  cursor: default;
+}
+.tag:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* ── Контакты ── */
+address.contacts {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-style: normal;
+  opacity: 0;
+  animation: fadeUp 0.6s 0.65s ease forwards;
+}
+.contact-label {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+ul.contact-list {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  align-items: left;
+}
+.contact-link {
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.2s;
+}
+.contact-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0; right: 0;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+.contact-link:hover { color: var(--gold); }
+.contact-link:hover::after { transform: scaleX(1); }
+
+/* ── Пометка Facebook ── */
+.banned-mark {
+  font-size: 8px;
+  color: var(--dim);
+  vertical-align: super;
+  margin-left: 1px;
+  opacity: 0.7;
+}
+.banned-note {
+  display: block;
+  font-size: 8px;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  text-transform: none;
+  color: var(--dim);
+  opacity: 0.55;
+  margin-top: 5px;
+}
+
+/* ── Фокус ── */
+a:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* ── Мобильный ── */
+@media (max-width: 640px) {
+  body { align-items: stretch; }
+
+  .bg-char,
+  .top-deco { display: none; }
+
+  .corner { width: 20px; height: 20px; }
+  .corner--tl { top: 20px; left: 20px; }
+  .corner--tr { top: 20px; right: 20px; }
+  .corner--bl { bottom: 20px; left: 20px; }
+  .corner--br { bottom: 20px; right: 20px; }
+
+  .edge-label { font-size: 8px; letter-spacing: 0.2em; }
+  .edge-label--top    { top: 24px; }
+  .edge-label--bottom { bottom: 24px; }
+
+  main.wrap {
+    width: auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 28px 88px;
+  }
+
+  .eyebrow { font-size: 9px; font-weight: 300; margin-bottom: 20px; gap: 10px; }
+  .eyebrow::after { max-width: 32px; }
+
+  h1.name { font-size: clamp(52px, 14vw, 76px); margin-bottom: 28px; }
+  .name-first { font-weight: 300; }
+
+  hr.hr { margin-bottom: 24px; }
+
+  .company { gap: 12px; margin-bottom: 24px; }
+  .company-sep { width: 14px; top: -3px; }
+  .company-role { font-size: 10px; }
+
+  ul.tags { gap: 7px; margin-bottom: 28px; }
+  .tag { font-size: 8px; font-weight: 300; letter-spacing: 0.14em; padding: 6px 11px; }
+
+  address.contacts { flex-direction: column; align-items: flex-start; gap: 0; }
+  .contact-label { font-size: 9px; font-weight: 300; margin-bottom: 16px; display: block; }
+  ul.contact-list { flex-direction: column; gap: 10px; }
+  .contact-link { font-size: 12px; font-weight: 300; display: inline-block; letter-spacing: 0.08em; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-char" aria-hidden="true">И</div>
+
+<div class="corner corner--tl" aria-hidden="true"></div>
+<div class="corner corner--tr" aria-hidden="true"></div>
+<div class="corner corner--bl" aria-hidden="true"></div>
+<div class="corner corner--br" aria-hidden="true"></div>
+
+<p class="edge-label edge-label--top" aria-hidden="true">Imshenetsky.com</p>
+<p class="edge-label edge-label--bottom" aria-hidden="true">Россия · Санкт-Петербург<span class="banned-note">* Запрещена на территории РФ</span></p>
+
+
+<main class="wrap">
+
+  <div class="top-deco" aria-hidden="true">
+    <div class="top-deco-line"></div>
+    <div class="top-deco-mark"></div>
+    <span class="top-deco-date">2026</span>
+  </div>
+
+  <p class="eyebrow">Предприниматель · IT</p>
+
+  <h1 class="name">
+    <span class="name-last">Имшенецкий</span>
+    <span class="name-first">Денис</span>
+  </h1>
+
+  <hr class="hr">
+
+  <div class="company">
+    <a href="https://nethouse.ru" target="_blank" rel="noopener noreferrer" class="company-badge">Nethouse</a>
+    <div class="company-sep" aria-hidden="true"></div>
+    <span class="company-role">CEO &amp; Founder</span>
+  </div>
+
+  <ul class="tags" aria-label="Сферы деятельности">
+    <li class="tag">IT-бизнес</li>
+    <li class="tag">Реклама и маркетинг</li>
+    <li class="tag">Инвестиции</li>
+  </ul>
+
+  <address class="contacts">
+    <span class="contact-label">Связь</span>
+    <ul class="contact-list">
+      <li><a href="https://vk.com/imshenetsky" target="_blank" rel="noopener noreferrer" class="contact-link">ВКонтакте</a></li>
+      <li><a href="https://www.facebook.com/imshenetsky" target="_blank" rel="noopener noreferrer" class="contact-link">Facebook<sup class="banned-mark">*</sup></a></li>
+      <li><a href="mailto:mail@din.ru" class="contact-link">E-mail</a></li>
+    </ul>
+  </address>
+
+</main>
+
+</body>
+</html>
